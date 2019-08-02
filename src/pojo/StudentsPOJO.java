@@ -6,6 +6,19 @@ public class StudentsPOJO {
 	String name, password, dob;
 
 
+	public StudentsPOJO(int id, String name, String password, String dob) {
+		// TODO Auto-generated constructor stub
+		
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.dob = dob;
+	}
+	
+	public StudentsPOJO() {
+		
+	}
+
 	public int getId() {
 		return id;
 	}

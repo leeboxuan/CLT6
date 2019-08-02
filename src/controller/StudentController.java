@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import pojo.StudentsPOJO;
@@ -15,10 +16,30 @@ public class StudentController {
 	public void addStudent() {
 		studentServiceRef = new StudentServiceImpl();
 		studentRef = new StudentsPOJO();
-		userInput();
+		addInput();
 	}
 	
-	private void userInput() {
+	public void updateStudent() {
+		studentServiceRef = new StudentServiceImpl();
+		studentRef = new StudentsPOJO();
+		updateInput();
+	}
+	
+	public List<StudentsPOJO> listStudents() {
+		studentServiceRef = new StudentServiceImpl();
+
+		return studentServiceRef.listStudents();
+	}
+	
+	public void removeStudent() {
+		studentServiceRef = new StudentServiceImpl();
+		deleteInput();
+
+	}
+	
+	
+	
+	private void addInput() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in); //Creates a new scanner
 
@@ -42,5 +63,39 @@ public class StudentController {
 		
 		studentServiceRef.addStudent(studentRef);
 		
+	}
+	
+	private void updateInput() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in); //Creates a new scanner
+
+		System.out.println("Enter which user ID you want to update: ");
+		int idInput = Integer.parseUnsignedInt(scan.nextLine());
+		studentRef.setId(idInput);
+
+		System.out.println("Enter your name");
+		String nameInput = scan.nextLine();
+		studentRef.setName(nameInput);
+		
+		
+		System.out.println("Enter your password");
+		String passInput = scan.nextLine();
+		studentRef.setPassword(passInput);
+		
+		
+		System.out.println("Enter your dob");
+		String dobInput = scan.nextLine();
+		studentRef.setDob(dobInput);
+		
+		studentServiceRef.updateStudent(studentRef);
+	}
+	
+	private void deleteInput() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in); //Creates a new scanner
+
+		System.out.println("Enter which user ID you want to delete: ");
+		int idInput = Integer.parseUnsignedInt(scan.nextLine());
+		studentServiceRef.removeStudent(idInput);
 	}
 }
