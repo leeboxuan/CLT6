@@ -9,6 +9,7 @@ public interface StudentService {
 	public void updateStudent(StudentsPOJO student);
 	public  List<StudentsPOJO> listStudents();
 	public void removeStudent(int id);
+	public Object getStudentById(int id);
 
 
 

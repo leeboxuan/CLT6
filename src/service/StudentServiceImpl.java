@@ -41,6 +41,13 @@ public class StudentServiceImpl implements StudentService{
 
 	}
 
+	@Override
+	public Object getStudentById(int id) {
+		// TODO Auto-generated method stub
+		refStudentsDao = new StudentsDAOImpl();
+		return refStudentsDao.getStudentById(id);
+	}
+
 
 
 }

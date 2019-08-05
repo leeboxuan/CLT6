@@ -12,7 +12,7 @@ import pojo.StudentsPOJO;
 
 public class StudentsDAOImpl implements StudentsDAO{
 
-	public static Connection prepareConnection() throws SQLException, ClassNotFoundException{
+	public  Connection prepareConnection() throws SQLException, ClassNotFoundException{
 
 		String connectionURL = "jdbc:mysql://localhost:3306/clt6";
 
@@ -43,8 +43,12 @@ public class StudentsDAOImpl implements StudentsDAO{
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			if (e.getErrorCode() == 1062) {
+				System.out.println("User ID is taken, please try again");
+
+			}
+}
 
 	}
 
@@ -100,9 +104,30 @@ public class StudentsDAOImpl implements StudentsDAO{
 	}
 
 	@Override
-	public void getStudentById(int id) {
+	public Object getStudentById(int id) {
 		// TODO Auto-generated method stub
+		Statement st;
+		List<StudentsPOJO> newList = new ArrayList<>();
 
+		try {
+			
+			st = prepareConnection().createStatement();
+			String sql = "SELECT * FROM students where userID = '" + id + "'";
+
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) {
+				StudentsPOJO student = new StudentsPOJO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				newList.add(student);
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return newList;
 	}
 
 	@Override
